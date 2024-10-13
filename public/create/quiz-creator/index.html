@@ -18,6 +18,12 @@
             <div id="question-field">
                 <label>Question 1: </label>
                 <input class = "question" id = "q1" type = "text" autofocus/>
+                <form onsubmit="predict(event)">
+                    <input type="file" id="fileInput1"/>
+                    <button>predict</button>
+                </form>
+                <img id="uploadedImage1" src="" style="display:none; width: 200px; height: auto;"/>
+                <input id="urlImage1" type="text" hidden/>
                 <br>
                 <br>
                 <label>Answer 1: </label>
