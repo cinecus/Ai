@@ -3,7 +3,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-
+const cors = require('cors')
 //Import classes
 const { LiveGames } = require('./utils/liveGames');
 const { Players } = require('./utils/players');
@@ -43,6 +43,7 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 
 const upload = multer({ storage: storage });
 
+app.use(cors())
 // Serve the uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.post("/upload", upload.single('file'), (req, res) => {
@@ -79,7 +80,7 @@ io.on('connection', (socket) => {
                 //A kahoot was found with the id passed in url
                 if (result[0] !== undefined) {
                     var gamePin = Math.floor(Math.random() * 90000) + 10000; //new pin for game
-
+                    console.log(gamePin)
                     games.addGame(gamePin, socket.id, false, { playersAnswered: 0, questionLive: false, gameid: data.id, question: 1 }); //Creates a game with pin and host id
 
                     var game = games.getGame(socket.id); //Gets the game data
